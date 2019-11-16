@@ -1,4 +1,8 @@
-<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uax="http://opcfoundation.org/UA/2008/02/Types.xsd" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd" xmlns:s1="http://harting.com/AIM/Types.xsd" xmlns:s2="http://opcfoundation.org/UA/AutoID/Types.xsd" xmlns:s3="http://opcfoundation.org/UA/DI/Types.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:uax="http://opcfoundation.org/UA/2008/02/Types.xsd"
+           xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd" xmlns:s1="http://harting.com/AIM/Types.xsd"
+           xmlns:s2="http://opcfoundation.org/UA/AutoID/Types.xsd" xmlns:s3="http://opcfoundation.org/UA/DI/Types.xsd"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <NamespaceUris>
         <Uri>http://harting.com/AIM/</Uri>
         <Uri>http://opcfoundation.org/UA/AutoID/</Uri>
@@ -40,7 +44,8 @@
             <Field Name="INPUT" Value="1"/>
         </Definition>
     </UADataType>
-    <UAVariable DataType="LocalizedText" ParentNodeId="ns=1;i=3003" ValueRank="1" NodeId="ns=1;i=6002" ArrayDimensions="2" BrowseName="EnumStrings">
+    <UAVariable DataType="LocalizedText" ParentNodeId="ns=1;i=3003" ValueRank="1" NodeId="ns=1;i=6002"
+                ArrayDimensions="2" BrowseName="EnumStrings">
         <DisplayName>EnumStrings</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=3003</Reference>
@@ -70,7 +75,8 @@
             <Field Name="UNKNOWN" Value="2"/>
         </Definition>
     </UADataType>
-    <UAVariable DataType="LocalizedText" ParentNodeId="ns=1;i=3002" ValueRank="1" NodeId="ns=1;i=6001" ArrayDimensions="3" BrowseName="EnumStrings">
+    <UAVariable DataType="LocalizedText" ParentNodeId="ns=1;i=3002" ValueRank="1" NodeId="ns=1;i=6001"
+                ArrayDimensions="3" BrowseName="EnumStrings">
         <DisplayName>EnumStrings</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=3002</Reference>
@@ -98,7 +104,8 @@
             <Reference ReferenceType="HasSubtype" IsForward="false">i=63</Reference>
         </References>
     </UAVariableType>
-    <UAVariable DataType="HaIODirectionEnumeration" ParentNodeId="ns=1;i=2004" NodeId="ns=1;i=6003" BrowseName="1:direction" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="HaIODirectionEnumeration" ParentNodeId="ns=1;i=2004" NodeId="ns=1;i=6003"
+                BrowseName="1:direction" UserAccessLevel="3" AccessLevel="3">
         <DisplayName>direction</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=2004</Reference>
@@ -114,7 +121,8 @@
             <Reference ReferenceType="HasProperty">ns=1;i=6042</Reference>
         </References>
     </UAObjectType>
-    <UAVariable DataType="String" ParentNodeId="ns=1;i=1006" NodeId="ns=1;i=6049" BrowseName="2:DeviceName" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="String" ParentNodeId="ns=1;i=1006" NodeId="ns=1;i=6049" BrowseName="2:DeviceName"
+                UserAccessLevel="3" AccessLevel="3">
         <DisplayName>DeviceName</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=1006</Reference>
@@ -125,7 +133,8 @@
             <uax:String></uax:String>
         </Value>
     </UAVariable>
-    <UAVariable DataType="RfidScanResult" ParentNodeId="ns=1;i=1006" ValueRank="1" NodeId="ns=1;i=6042" BrowseName="2:ScanResult" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="RfidScanResult" ParentNodeId="ns=1;i=1006" ValueRank="1" NodeId="ns=1;i=6042"
+                BrowseName="2:ScanResult" UserAccessLevel="3" AccessLevel="3">
         <DisplayName>ScanResult</DisplayName>
         <References>
             <Reference ReferenceType="HasModellingRule">i=78</Reference>
@@ -167,14 +176,16 @@
             <Reference ReferenceType="HasComponent">ns=1;s=rfr310.WriteTag</Reference>
         </References>
     </UAObject>
-    <UAVariable DataType="AntennaNameIdPair" ParentNodeId="ns=1;s=rfr310" ValueRank="1" NodeId="ns=1;s=rfr310.AntennaNames" BrowseName="2:AntennaNames" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="AntennaNameIdPair" ParentNodeId="ns=1;s=rfr310" ValueRank="1"
+                NodeId="ns=1;s=rfr310.AntennaNames" BrowseName="2:AntennaNames" UserAccessLevel="3" AccessLevel="3">
         <DisplayName>AntennaNames</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310</Reference>
             <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
         </References>
     </UAVariable>
-    <UAVariable DataType="String" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.AutoIdModelVersion" BrowseName="2:AutoIdModelVersion" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="String" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.AutoIdModelVersion"
+                BrowseName="2:AutoIdModelVersion" UserAccessLevel="3" AccessLevel="3">
         <DisplayName>AutoIdModelVersion</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310</Reference>
@@ -184,7 +195,8 @@
             <uax:String>1.0</uax:String>
         </Value>
     </UAVariable>
-    <UAVariable DataType="String" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.DeviceInfo" BrowseName="2:DeviceInfo" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="String" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.DeviceInfo"
+                BrowseName="2:DeviceInfo" UserAccessLevel="3" AccessLevel="3">
         <DisplayName>DeviceInfo</DisplayName>
         <Description>Device status information</Description>
         <References>
@@ -192,23 +204,29 @@
             <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
         </References>
     </UAVariable>
-    <UAVariable DataType="String" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.DeviceManual" BrowseName="3:DeviceManual">
+    <UAVariable DataType="String" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.DeviceManual"
+                BrowseName="3:DeviceManual">
         <DisplayName>DeviceManual</DisplayName>
-        <Description>Address (pathname in the file system or a URL | Web address) of user manual for the device</Description>
+        <Description>Address (pathname in the file system or a URL | Web address) of user manual for the device
+        </Description>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310</Reference>
             <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
         </References>
     </UAVariable>
-    <UAVariable DataType="String" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.DeviceName" BrowseName="2:DeviceName" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="String" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.DeviceName"
+                BrowseName="2:DeviceName" UserAccessLevel="3" AccessLevel="3">
         <DisplayName>DeviceName</DisplayName>
-        <Description>Default could be also host name, IP address or MAC. This should be a field that can be configured for a device.</Description>
+        <Description>Default could be also host name, IP address or MAC. This should be a field that can be configured
+            for a device.
+        </Description>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310</Reference>
             <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
         </References>
     </UAVariable>
-    <UAVariable DataType="String" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.DeviceRevision" BrowseName="3:DeviceRevision">
+    <UAVariable DataType="String" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.DeviceRevision"
+                BrowseName="3:DeviceRevision">
         <DisplayName>DeviceRevision</DisplayName>
         <Description>Overall revision level of the device</Description>
         <References>
@@ -216,14 +234,16 @@
             <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
         </References>
     </UAVariable>
-    <UAVariable DataType="DeviceStatusEnumeration" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.DeviceStatus" BrowseName="2:DeviceStatus">
+    <UAVariable DataType="DeviceStatusEnumeration" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.DeviceStatus"
+                BrowseName="2:DeviceStatus">
         <DisplayName>DeviceStatus</DisplayName>
         <References>
             <Reference ReferenceType="HasTypeDefinition">i=63</Reference>
             <Reference ReferenceType="HasComponent" IsForward="false">ns=1;s=rfr310</Reference>
         </References>
     </UAVariable>
-    <UAVariable DataType="String" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.HardwareRevision" BrowseName="3:HardwareRevision">
+    <UAVariable DataType="String" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.HardwareRevision"
+                BrowseName="3:HardwareRevision">
         <DisplayName>HardwareRevision</DisplayName>
         <Description>Revision level of the hardware of the device</Description>
         <References>
@@ -246,7 +266,8 @@
             <Reference ReferenceType="HasComponent">ns=1;s=rfr310.IOData.SWS2_SWD2</Reference>
         </References>
     </UAObject>
-    <UAVariable DataType="HaIOStateEnumeration" NodeId="ns=1;s=rfr310.IOData.HS1" BrowseName="1:HS1" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="HaIOStateEnumeration" NodeId="ns=1;s=rfr310.IOData.HS1" BrowseName="1:HS1" UserAccessLevel="3"
+                AccessLevel="3">
         <DisplayName>HS1</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty">ns=1;s=rfr310.IOData.HS1.direction</Reference>
@@ -257,7 +278,9 @@
             <uax:Int32>0</uax:Int32>
         </Value>
     </UAVariable>
-    <UAVariable DataType="HaIODirectionEnumeration" ParentNodeId="ns=1;s=rfr310.IOData.HS1" NodeId="ns=1;s=rfr310.IOData.HS1.direction" BrowseName="1:direction" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="HaIODirectionEnumeration" ParentNodeId="ns=1;s=rfr310.IOData.HS1"
+                NodeId="ns=1;s=rfr310.IOData.HS1.direction" BrowseName="1:direction" UserAccessLevel="3"
+                AccessLevel="3">
         <DisplayName>direction</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.IOData.HS1</Reference>
@@ -267,7 +290,8 @@
             <uax:Int32>0</uax:Int32>
         </Value>
     </UAVariable>
-    <UAVariable DataType="HaIOStateEnumeration" NodeId="ns=1;s=rfr310.IOData.HS2" BrowseName="1:HS2" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="HaIOStateEnumeration" NodeId="ns=1;s=rfr310.IOData.HS2" BrowseName="1:HS2" UserAccessLevel="3"
+                AccessLevel="3">
         <DisplayName>HS2</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty">ns=1;s=rfr310.IOData.HS2.direction</Reference>
@@ -278,7 +302,9 @@
             <uax:Int32>0</uax:Int32>
         </Value>
     </UAVariable>
-    <UAVariable DataType="HaIODirectionEnumeration" ParentNodeId="ns=1;s=rfr310.IOData.HS2" NodeId="ns=1;s=rfr310.IOData.HS2.direction" BrowseName="1:direction" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="HaIODirectionEnumeration" ParentNodeId="ns=1;s=rfr310.IOData.HS2"
+                NodeId="ns=1;s=rfr310.IOData.HS2.direction" BrowseName="1:direction" UserAccessLevel="3"
+                AccessLevel="3">
         <DisplayName>direction</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.IOData.HS2</Reference>
@@ -288,7 +314,8 @@
             <uax:Int32>0</uax:Int32>
         </Value>
     </UAVariable>
-    <UAVariable DataType="HaIOStateEnumeration" NodeId="ns=1;s=rfr310.IOData.HS3" BrowseName="1:HS3" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="HaIOStateEnumeration" NodeId="ns=1;s=rfr310.IOData.HS3" BrowseName="1:HS3" UserAccessLevel="3"
+                AccessLevel="3">
         <DisplayName>HS3</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty">ns=1;s=rfr310.IOData.HS3.direction</Reference>
@@ -299,7 +326,9 @@
             <uax:Int32>0</uax:Int32>
         </Value>
     </UAVariable>
-    <UAVariable DataType="HaIODirectionEnumeration" ParentNodeId="ns=1;s=rfr310.IOData.HS3" NodeId="ns=1;s=rfr310.IOData.HS3.direction" BrowseName="1:direction" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="HaIODirectionEnumeration" ParentNodeId="ns=1;s=rfr310.IOData.HS3"
+                NodeId="ns=1;s=rfr310.IOData.HS3.direction" BrowseName="1:direction" UserAccessLevel="3"
+                AccessLevel="3">
         <DisplayName>direction</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.IOData.HS3</Reference>
@@ -309,7 +338,8 @@
             <uax:Int32>0</uax:Int32>
         </Value>
     </UAVariable>
-    <UAVariable DataType="HaIOStateEnumeration" NodeId="ns=1;s=rfr310.IOData.HS4" BrowseName="1:HS4" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="HaIOStateEnumeration" NodeId="ns=1;s=rfr310.IOData.HS4" BrowseName="1:HS4" UserAccessLevel="3"
+                AccessLevel="3">
         <DisplayName>HS4</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty">ns=1;s=rfr310.IOData.HS4.direction</Reference>
@@ -320,7 +350,9 @@
             <uax:Int32>0</uax:Int32>
         </Value>
     </UAVariable>
-    <UAVariable DataType="HaIODirectionEnumeration" ParentNodeId="ns=1;s=rfr310.IOData.HS4" NodeId="ns=1;s=rfr310.IOData.HS4.direction" BrowseName="1:direction" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="HaIODirectionEnumeration" ParentNodeId="ns=1;s=rfr310.IOData.HS4"
+                NodeId="ns=1;s=rfr310.IOData.HS4.direction" BrowseName="1:direction" UserAccessLevel="3"
+                AccessLevel="3">
         <DisplayName>direction</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.IOData.HS4</Reference>
@@ -330,7 +362,8 @@
             <uax:Int32>0</uax:Int32>
         </Value>
     </UAVariable>
-    <UAVariable DataType="HaIOStateEnumeration" NodeId="ns=1;s=rfr310.IOData.LS1" BrowseName="1:LS1" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="HaIOStateEnumeration" NodeId="ns=1;s=rfr310.IOData.LS1" BrowseName="1:LS1" UserAccessLevel="3"
+                AccessLevel="3">
         <DisplayName>LS1</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty">ns=1;s=rfr310.IOData.LS1.direction</Reference>
@@ -341,7 +374,9 @@
             <uax:Int32>0</uax:Int32>
         </Value>
     </UAVariable>
-    <UAVariable DataType="HaIODirectionEnumeration" ParentNodeId="ns=1;s=rfr310.IOData.LS1" NodeId="ns=1;s=rfr310.IOData.LS1.direction" BrowseName="1:direction" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="HaIODirectionEnumeration" ParentNodeId="ns=1;s=rfr310.IOData.LS1"
+                NodeId="ns=1;s=rfr310.IOData.LS1.direction" BrowseName="1:direction" UserAccessLevel="3"
+                AccessLevel="3">
         <DisplayName>direction</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.IOData.LS1</Reference>
@@ -351,7 +386,8 @@
             <uax:Int32>0</uax:Int32>
         </Value>
     </UAVariable>
-    <UAVariable DataType="HaIOStateEnumeration" NodeId="ns=1;s=rfr310.IOData.LS2" BrowseName="1:LS2" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="HaIOStateEnumeration" NodeId="ns=1;s=rfr310.IOData.LS2" BrowseName="1:LS2" UserAccessLevel="3"
+                AccessLevel="3">
         <DisplayName>LS2</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty">ns=1;s=rfr310.IOData.LS2.direction</Reference>
@@ -362,7 +398,9 @@
             <uax:Int32>0</uax:Int32>
         </Value>
     </UAVariable>
-    <UAVariable DataType="HaIODirectionEnumeration" ParentNodeId="ns=1;s=rfr310.IOData.LS2" NodeId="ns=1;s=rfr310.IOData.LS2.direction" BrowseName="1:direction" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="HaIODirectionEnumeration" ParentNodeId="ns=1;s=rfr310.IOData.LS2"
+                NodeId="ns=1;s=rfr310.IOData.LS2.direction" BrowseName="1:direction" UserAccessLevel="3"
+                AccessLevel="3">
         <DisplayName>direction</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.IOData.LS2</Reference>
@@ -372,7 +410,8 @@
             <uax:Int32>0</uax:Int32>
         </Value>
     </UAVariable>
-    <UAVariable DataType="HaIOStateEnumeration" NodeId="ns=1;s=rfr310.IOData.SWS1_SWD1" BrowseName="1:SWS1_SWD1" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="HaIOStateEnumeration" NodeId="ns=1;s=rfr310.IOData.SWS1_SWD1" BrowseName="1:SWS1_SWD1"
+                UserAccessLevel="3" AccessLevel="3">
         <DisplayName>SWS1_SWD1</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty">ns=1;s=rfr310.IOData.SWS1_SWD1.direction</Reference>
@@ -383,7 +422,9 @@
             <uax:Int32>0</uax:Int32>
         </Value>
     </UAVariable>
-    <UAVariable DataType="HaIODirectionEnumeration" ParentNodeId="ns=1;s=rfr310.IOData.SWS1_SWD1" NodeId="ns=1;s=rfr310.IOData.SWS1_SWD1.direction" BrowseName="1:direction" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="HaIODirectionEnumeration" ParentNodeId="ns=1;s=rfr310.IOData.SWS1_SWD1"
+                NodeId="ns=1;s=rfr310.IOData.SWS1_SWD1.direction" BrowseName="1:direction" UserAccessLevel="3"
+                AccessLevel="3">
         <DisplayName>direction</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.IOData.SWS1_SWD1</Reference>
@@ -393,7 +434,8 @@
             <uax:Int32>0</uax:Int32>
         </Value>
     </UAVariable>
-    <UAVariable DataType="HaIOStateEnumeration" NodeId="ns=1;s=rfr310.IOData.SWS2_SWD2" BrowseName="1:SWS2_SWD2" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="HaIOStateEnumeration" NodeId="ns=1;s=rfr310.IOData.SWS2_SWD2" BrowseName="1:SWS2_SWD2"
+                UserAccessLevel="3" AccessLevel="3">
         <DisplayName>SWS2_SWD2</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty">ns=1;s=rfr310.IOData.SWS2_SWD2.direction</Reference>
@@ -404,7 +446,9 @@
             <uax:Int32>0</uax:Int32>
         </Value>
     </UAVariable>
-    <UAVariable DataType="HaIODirectionEnumeration" ParentNodeId="ns=1;s=rfr310.IOData.SWS2_SWD2" NodeId="ns=1;s=rfr310.IOData.SWS2_SWD2.direction" BrowseName="1:direction" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="HaIODirectionEnumeration" ParentNodeId="ns=1;s=rfr310.IOData.SWS2_SWD2"
+                NodeId="ns=1;s=rfr310.IOData.SWS2_SWD2.direction" BrowseName="1:direction" UserAccessLevel="3"
+                AccessLevel="3">
         <DisplayName>direction</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.IOData.SWS2_SWD2</Reference>
@@ -414,7 +458,8 @@
             <uax:Int32>0</uax:Int32>
         </Value>
     </UAVariable>
-    <UAMethod ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.KillTag" BrowseName="2:KillTag" MethodDeclarationId="ns=2;i=7017">
+    <UAMethod ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.KillTag" BrowseName="2:KillTag"
+              MethodDeclarationId="ns=2;i=7017">
         <DisplayName>KillTag</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty">ns=1;s=rfr310.KillTag.InputArguments</Reference>
@@ -422,7 +467,8 @@
             <Reference ReferenceType="HasProperty">ns=1;s=rfr310.KillTag.OutputArguments</Reference>
         </References>
     </UAMethod>
-    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.KillTag" ValueRank="1" NodeId="ns=1;s=rfr310.KillTag.InputArguments" ArrayDimensions="3" BrowseName="InputArguments">
+    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.KillTag" ValueRank="1"
+                NodeId="ns=1;s=rfr310.KillTag.InputArguments" ArrayDimensions="3" BrowseName="InputArguments">
         <DisplayName>InputArguments</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.KillTag</Reference>
@@ -481,7 +527,8 @@
             </uax:ListOfExtensionObject>
         </Value>
     </UAVariable>
-    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.KillTag" ValueRank="1" NodeId="ns=1;s=rfr310.KillTag.OutputArguments" ArrayDimensions="1" BrowseName="OutputArguments">
+    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.KillTag" ValueRank="1"
+                NodeId="ns=1;s=rfr310.KillTag.OutputArguments" ArrayDimensions="1" BrowseName="OutputArguments">
         <DisplayName>OutputArguments</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.KillTag</Reference>
@@ -508,14 +555,16 @@
             </uax:ListOfExtensionObject>
         </Value>
     </UAVariable>
-    <UAVariable DataType="ScanData" NodeId="ns=1;s=rfr310.LastScanData" BrowseName="1:LastScanData" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="ScanData" NodeId="ns=1;s=rfr310.LastScanData" BrowseName="1:LastScanData" UserAccessLevel="3"
+                AccessLevel="3">
         <DisplayName>LastScanData</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310</Reference>
             <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
         </References>
     </UAVariable>
-    <UAMethod ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.LockTag" BrowseName="2:LockTag" MethodDeclarationId="ns=2;i=7018">
+    <UAMethod ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.LockTag" BrowseName="2:LockTag"
+              MethodDeclarationId="ns=2;i=7018">
         <DisplayName>LockTag</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty">ns=1;s=rfr310.LockTag.InputArguments</Reference>
@@ -523,7 +572,8 @@
             <Reference ReferenceType="HasProperty">ns=1;s=rfr310.LockTag.OutputArguments</Reference>
         </References>
     </UAMethod>
-    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.LockTag" ValueRank="1" NodeId="ns=1;s=rfr310.LockTag.InputArguments" ArrayDimensions="7" BrowseName="InputArguments">
+    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.LockTag" ValueRank="1"
+                NodeId="ns=1;s=rfr310.LockTag.InputArguments" ArrayDimensions="7" BrowseName="InputArguments">
         <DisplayName>InputArguments</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.LockTag</Reference>
@@ -646,7 +696,8 @@
             </uax:ListOfExtensionObject>
         </Value>
     </UAVariable>
-    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.LockTag" ValueRank="1" NodeId="ns=1;s=rfr310.LockTag.OutputArguments" ArrayDimensions="1" BrowseName="OutputArguments">
+    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.LockTag" ValueRank="1"
+                NodeId="ns=1;s=rfr310.LockTag.OutputArguments" ArrayDimensions="1" BrowseName="OutputArguments">
         <DisplayName>OutputArguments</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.LockTag</Reference>
@@ -673,7 +724,8 @@
             </uax:ListOfExtensionObject>
         </Value>
     </UAVariable>
-    <UAVariable DataType="LocalizedText" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.Manufacturer" BrowseName="3:Manufacturer">
+    <UAVariable DataType="LocalizedText" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.Manufacturer"
+                BrowseName="3:Manufacturer">
         <DisplayName>Manufacturer</DisplayName>
         <Description>Model name of the device</Description>
         <References>
@@ -698,7 +750,8 @@
             <Reference ReferenceType="HasComponent" IsForward="false">ns=1;s=rfr310</Reference>
         </References>
     </UAObject>
-    <UAVariable ParentNodeId="ns=1;s=rfr310.ParameterSet" NodeId="ns=1;s=rfr310.ParameterSet.ParameterIdentifier" BrowseName="3:ParameterIdentifier">
+    <UAVariable ParentNodeId="ns=1;s=rfr310.ParameterSet" NodeId="ns=1;s=rfr310.ParameterSet.ParameterIdentifier"
+                BrowseName="3:ParameterIdentifier">
         <DisplayName>ParameterIdentifier</DisplayName>
         <Description>A parameter which belongs to the topology element.</Description>
         <References>
@@ -706,7 +759,8 @@
             <Reference ReferenceType="HasComponent" IsForward="false">ns=1;s=rfr310.ParameterSet</Reference>
         </References>
     </UAVariable>
-    <UAMethod ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.ReadTag" BrowseName="2:ReadTag" MethodDeclarationId="ns=2;i=7014">
+    <UAMethod ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.ReadTag" BrowseName="2:ReadTag"
+              MethodDeclarationId="ns=2;i=7014">
         <DisplayName>ReadTag</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty">ns=1;s=rfr310.ReadTag.InputArguments</Reference>
@@ -714,7 +768,8 @@
             <Reference ReferenceType="HasComponent" IsForward="false">ns=1;s=rfr310</Reference>
         </References>
     </UAMethod>
-    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.ReadTag" ValueRank="1" NodeId="ns=1;s=rfr310.ReadTag.InputArguments" ArrayDimensions="6" BrowseName="InputArguments">
+    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.ReadTag" ValueRank="1"
+                NodeId="ns=1;s=rfr310.ReadTag.InputArguments" ArrayDimensions="6" BrowseName="InputArguments">
         <DisplayName>InputArguments</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.ReadTag</Reference>
@@ -821,7 +876,8 @@
             </uax:ListOfExtensionObject>
         </Value>
     </UAVariable>
-    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.ReadTag" ValueRank="1" NodeId="ns=1;s=rfr310.ReadTag.OutputArguments" ArrayDimensions="2" BrowseName="OutputArguments">
+    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.ReadTag" ValueRank="1"
+                NodeId="ns=1;s=rfr310.ReadTag.OutputArguments" ArrayDimensions="2" BrowseName="OutputArguments">
         <DisplayName>OutputArguments</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.ReadTag</Reference>
@@ -864,9 +920,12 @@
             </uax:ListOfExtensionObject>
         </Value>
     </UAVariable>
-    <UAVariable DataType="Int32" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.RevisionCounter" BrowseName="3:RevisionCounter">
+    <UAVariable DataType="Int32" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.RevisionCounter"
+                BrowseName="3:RevisionCounter">
         <DisplayName>RevisionCounter</DisplayName>
-        <Description>An incremental counter indicating the number of times the static data within the Device has been modified</Description>
+        <Description>An incremental counter indicating the number of times the static data within the Device has been
+            modified
+        </Description>
         <References>
             <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310</Reference>
@@ -883,7 +942,8 @@
             <Reference ReferenceType="HasComponent">ns=1;s=rfr310.RuntimeParameters.TagTypes</Reference>
         </References>
     </UAObject>
-    <UAVariable DataType="UInt32" ValueRank="1" NodeId="ns=1;s=rfr310.RuntimeParameters.CodeTypes" BrowseName="1:CodeTypes" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="UInt32" ValueRank="1" NodeId="ns=1;s=rfr310.RuntimeParameters.CodeTypes"
+                BrowseName="1:CodeTypes" UserAccessLevel="3" AccessLevel="3">
         <DisplayName>CodeTypes</DisplayName>
         <References>
             <Reference ReferenceType="HasComponent" IsForward="false">ns=1;s=rfr310.RuntimeParameters</Reference>
@@ -894,31 +954,37 @@
             <uax:ListOfUInt32/>
         </Value>
     </UAVariable>
-    <UAVariable DataType="LocalizedText" ParentNodeId="ns=1;s=rfr310.RuntimeParameters.CodeTypes" ValueRank="1" NodeId="ns=1;s=rfr310.RuntimeParameters.CodeTypes.EnumStrings" ArrayDimensions="0" BrowseName="EnumStrings">
+    <UAVariable DataType="LocalizedText" ParentNodeId="ns=1;s=rfr310.RuntimeParameters.CodeTypes" ValueRank="1"
+                NodeId="ns=1;s=rfr310.RuntimeParameters.CodeTypes.EnumStrings" ArrayDimensions="0"
+                BrowseName="EnumStrings">
         <DisplayName>EnumStrings</DisplayName>
         <References>
-            <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.RuntimeParameters.CodeTypes</Reference>
+            <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.RuntimeParameters.CodeTypes
+            </Reference>
             <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
         </References>
         <Value>
             <uax:ListOfLocalizedText/>
         </Value>
     </UAVariable>
-    <UAVariable DataType="Int32" NodeId="ns=1;s=rfr310.RuntimeParameters.MinRssi" BrowseName="1:MinRssi" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="Int32" NodeId="ns=1;s=rfr310.RuntimeParameters.MinRssi" BrowseName="1:MinRssi"
+                UserAccessLevel="3" AccessLevel="3">
         <DisplayName>MinRssi</DisplayName>
         <References>
             <Reference ReferenceType="HasTypeDefinition">i=63</Reference>
             <Reference ReferenceType="HasComponent" IsForward="false">ns=1;s=rfr310.RuntimeParameters</Reference>
         </References>
     </UAVariable>
-    <UAVariable DataType="SByte" NodeId="ns=1;s=rfr310.RuntimeParameters.RfPower" BrowseName="1:RfPower" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="SByte" NodeId="ns=1;s=rfr310.RuntimeParameters.RfPower" BrowseName="1:RfPower"
+                UserAccessLevel="3" AccessLevel="3">
         <DisplayName>RfPower</DisplayName>
         <References>
             <Reference ReferenceType="HasTypeDefinition">i=63</Reference>
             <Reference ReferenceType="HasComponent" IsForward="false">ns=1;s=rfr310.RuntimeParameters</Reference>
         </References>
     </UAVariable>
-    <UAVariable DataType="UInt32" ValueRank="1" NodeId="ns=1;s=rfr310.RuntimeParameters.TagTypes" BrowseName="1:TagTypes" UserAccessLevel="3" AccessLevel="3">
+    <UAVariable DataType="UInt32" ValueRank="1" NodeId="ns=1;s=rfr310.RuntimeParameters.TagTypes"
+                BrowseName="1:TagTypes" UserAccessLevel="3" AccessLevel="3">
         <DisplayName>TagTypes</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty">ns=1;s=rfr310.RuntimeParameters.TagTypes.EnumStrings</Reference>
@@ -931,14 +997,17 @@
             </uax:ListOfUInt32>
         </Value>
     </UAVariable>
-    <UAVariable DataType="LocalizedText" ParentNodeId="ns=1;s=rfr310.RuntimeParameters.TagTypes" ValueRank="1" NodeId="ns=1;s=rfr310.RuntimeParameters.TagTypes.EnumStrings" BrowseName="EnumStrings">
+    <UAVariable DataType="LocalizedText" ParentNodeId="ns=1;s=rfr310.RuntimeParameters.TagTypes" ValueRank="1"
+                NodeId="ns=1;s=rfr310.RuntimeParameters.TagTypes.EnumStrings" BrowseName="EnumStrings">
         <DisplayName>EnumStrings</DisplayName>
         <References>
-            <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.RuntimeParameters.TagTypes</Reference>
+            <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.RuntimeParameters.TagTypes
+            </Reference>
             <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
         </References>
     </UAVariable>
-    <UAMethod ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.Scan" BrowseName="2:Scan" MethodDeclarationId="ns=2;i=7013">
+    <UAMethod ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.Scan" BrowseName="2:Scan"
+              MethodDeclarationId="ns=2;i=7013">
         <DisplayName>Scan</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty">ns=1;s=rfr310.Scan.InputArguments</Reference>
@@ -946,7 +1015,8 @@
             <Reference ReferenceType="HasComponent" IsForward="false">ns=1;s=rfr310</Reference>
         </References>
     </UAMethod>
-    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.Scan" ValueRank="1" NodeId="ns=1;s=rfr310.Scan.InputArguments" ArrayDimensions="1" BrowseName="InputArguments">
+    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.Scan" ValueRank="1"
+                NodeId="ns=1;s=rfr310.Scan.InputArguments" ArrayDimensions="1" BrowseName="InputArguments">
         <DisplayName>InputArguments</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.Scan</Reference>
@@ -973,7 +1043,8 @@
             </uax:ListOfExtensionObject>
         </Value>
     </UAVariable>
-    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.Scan" ValueRank="1" NodeId="ns=1;s=rfr310.Scan.OutputArguments" ArrayDimensions="2" BrowseName="OutputArguments">
+    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.Scan" ValueRank="1"
+                NodeId="ns=1;s=rfr310.Scan.OutputArguments" ArrayDimensions="2" BrowseName="OutputArguments">
         <DisplayName>OutputArguments</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.Scan</Reference>
@@ -1016,7 +1087,8 @@
             </uax:ListOfExtensionObject>
         </Value>
     </UAVariable>
-    <UAMethod ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.ScanStart" BrowseName="2:ScanStart" MethodDeclarationId="ns=2;i=7009">
+    <UAMethod ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.ScanStart" BrowseName="2:ScanStart"
+              MethodDeclarationId="ns=2;i=7009">
         <DisplayName>ScanStart</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty">ns=1;s=rfr310.ScanStart.InputArguments</Reference>
@@ -1024,7 +1096,8 @@
             <Reference ReferenceType="HasComponent" IsForward="false">ns=1;s=rfr310</Reference>
         </References>
     </UAMethod>
-    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.ScanStart" ValueRank="1" NodeId="ns=1;s=rfr310.ScanStart.InputArguments" ArrayDimensions="1" BrowseName="InputArguments">
+    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.ScanStart" ValueRank="1"
+                NodeId="ns=1;s=rfr310.ScanStart.InputArguments" ArrayDimensions="1" BrowseName="InputArguments">
         <DisplayName>InputArguments</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.ScanStart</Reference>
@@ -1051,7 +1124,8 @@
             </uax:ListOfExtensionObject>
         </Value>
     </UAVariable>
-    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.ScanStart" ValueRank="1" NodeId="ns=1;s=rfr310.ScanStart.OutputArguments" ArrayDimensions="1" BrowseName="OutputArguments">
+    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.ScanStart" ValueRank="1"
+                NodeId="ns=1;s=rfr310.ScanStart.OutputArguments" ArrayDimensions="1" BrowseName="OutputArguments">
         <DisplayName>OutputArguments</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.ScanStart</Reference>
@@ -1078,13 +1152,15 @@
             </uax:ListOfExtensionObject>
         </Value>
     </UAVariable>
-    <UAMethod ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.ScanStop" BrowseName="2:ScanStop" MethodDeclarationId="ns=2;i=7010">
+    <UAMethod ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.ScanStop" BrowseName="2:ScanStop"
+              MethodDeclarationId="ns=2;i=7010">
         <DisplayName>ScanStop</DisplayName>
         <References>
             <Reference ReferenceType="HasComponent" IsForward="false">ns=1;s=rfr310</Reference>
         </References>
     </UAMethod>
-    <UAVariable DataType="String" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.SerialNumber" BrowseName="3:SerialNumber">
+    <UAVariable DataType="String" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.SerialNumber"
+                BrowseName="3:SerialNumber">
         <DisplayName>SerialNumber</DisplayName>
         <Description>Identifier that uniquely identifies, within a manufacturer, a device instance</Description>
         <References>
@@ -1092,7 +1168,8 @@
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310</Reference>
         </References>
     </UAVariable>
-    <UAMethod ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.SetTagPassword" BrowseName="2:SetTagPassword" MethodDeclarationId="ns=2;i=7016">
+    <UAMethod ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.SetTagPassword" BrowseName="2:SetTagPassword"
+              MethodDeclarationId="ns=2;i=7016">
         <DisplayName>SetTagPassword</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty">ns=1;s=rfr310.SetTagPassword.InputArguments</Reference>
@@ -1100,7 +1177,8 @@
             <Reference ReferenceType="HasComponent" IsForward="false">ns=1;s=rfr310</Reference>
         </References>
     </UAMethod>
-    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.SetTagPassword" ValueRank="1" NodeId="ns=1;s=rfr310.SetTagPassword.InputArguments" ArrayDimensions="5" BrowseName="InputArguments">
+    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.SetTagPassword" ValueRank="1"
+                NodeId="ns=1;s=rfr310.SetTagPassword.InputArguments" ArrayDimensions="5" BrowseName="InputArguments">
         <DisplayName>InputArguments</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.SetTagPassword</Reference>
@@ -1191,7 +1269,8 @@
             </uax:ListOfExtensionObject>
         </Value>
     </UAVariable>
-    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.SetTagPassword" ValueRank="1" NodeId="ns=1;s=rfr310.SetTagPassword.OutputArguments" ArrayDimensions="1" BrowseName="OutputArguments">
+    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.SetTagPassword" ValueRank="1"
+                NodeId="ns=1;s=rfr310.SetTagPassword.OutputArguments" ArrayDimensions="1" BrowseName="OutputArguments">
         <DisplayName>OutputArguments</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.SetTagPassword</Reference>
@@ -1218,7 +1297,8 @@
             </uax:ListOfExtensionObject>
         </Value>
     </UAVariable>
-    <UAVariable DataType="String" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.SoftwareRevision" BrowseName="3:SoftwareRevision">
+    <UAVariable DataType="String" ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.SoftwareRevision"
+                BrowseName="3:SoftwareRevision">
         <DisplayName>SoftwareRevision</DisplayName>
         <Description>Revision level of the software/firmware of the device</Description>
         <References>
@@ -1226,7 +1306,8 @@
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310</Reference>
         </References>
     </UAVariable>
-    <UAMethod ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.WriteTag" BrowseName="2:WriteTag" MethodDeclarationId="ns=2;i=7015">
+    <UAMethod ParentNodeId="ns=1;s=rfr310" NodeId="ns=1;s=rfr310.WriteTag" BrowseName="2:WriteTag"
+              MethodDeclarationId="ns=2;i=7015">
         <DisplayName>WriteTag</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty">ns=1;s=rfr310.WriteTag.InputArguments</Reference>
@@ -1234,7 +1315,8 @@
             <Reference ReferenceType="HasComponent" IsForward="false">ns=1;s=rfr310</Reference>
         </References>
     </UAMethod>
-    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.WriteTag" ValueRank="1" NodeId="ns=1;s=rfr310.WriteTag.InputArguments" ArrayDimensions="6" BrowseName="InputArguments">
+    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.WriteTag" ValueRank="1"
+                NodeId="ns=1;s=rfr310.WriteTag.InputArguments" ArrayDimensions="6" BrowseName="InputArguments">
         <DisplayName>InputArguments</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.WriteTag</Reference>
@@ -1341,7 +1423,8 @@
             </uax:ListOfExtensionObject>
         </Value>
     </UAVariable>
-    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.WriteTag" ValueRank="1" NodeId="ns=1;s=rfr310.WriteTag.OutputArguments" ArrayDimensions="1" BrowseName="OutputArguments">
+    <UAVariable DataType="Argument" ParentNodeId="ns=1;s=rfr310.WriteTag" ValueRank="1"
+                NodeId="ns=1;s=rfr310.WriteTag.OutputArguments" ArrayDimensions="1" BrowseName="OutputArguments">
         <DisplayName>OutputArguments</DisplayName>
         <References>
             <Reference ReferenceType="HasProperty" IsForward="false">ns=1;s=rfr310.WriteTag</Reference>

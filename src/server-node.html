@@ -1,6 +1,6 @@
 <!--
     MIT License
-    Copyright (c) 2018,2019 Bianco Royal Software Innovations® (https://bianco-royal.cloud/)
+    Copyright (c) 2018,2019 Bianco Royal Software Innovations® (https://bianco-royal.com/)
 -->
 <script type="text/x-red" data-help-name="opcua-compact-server">
   <h2>OPC UA Compact Server</h2>
@@ -42,549 +42,550 @@
   Be sure to have a LDS running if you set LDS instead of HIDDEN.</p>
 
   <p>Set showErrors to get errors from node-opcua on browse.</p>
+
 </script>
 
 <script type="text/javascript">
-  RED.nodes.registerType("opcua-compact-server", {
-    category: "opcua",
-    color: "#20B2aa",
-    defaults: {
-      port: {
-        value: 54840,
-        required: true,
-        validate: val => {
-          return val === "" || RED.validators.number(val);
-        }
-      },
-      endpoint: { value: "" },
-      productUri: { value: "" },
-      acceptExternalCommands: { value: true },
-      maxAllowedSessionNumber: {
-        value: 10,
-        validate: function(v) {
-          return v === "" || (RED.validators.number(v) && v > 0 && v <= 10);
-        }
-      },
-      maxConnectionsPerEndpoint: {
-        value: 10,
-        validate: function(v) {
-          return v === "" || (RED.validators.number(v) && v > 0 && v <= 10);
-        }
-      },
-      maxAllowedSubscriptionNumber: {
-        value: 100,
-        validate: function(v) {
-          return v === "" || (RED.validators.number(v) && v > 0 && v <= 10000);
-        }
-      },
-      alternateHostname: { value: "" },
-      name: { value: "" },
-      showStatusActivities: { value: false },
-      showErrors: { value: false },
-      allowAnonymous: { value: true },
-      individualCerts: { value: false },
-      isAuditing: { value: false },
-      serverDiscovery: { value: true },
-      users: { value: [] },
-      xmlsetsOPCUA: { value: [] },
-      publicCertificateFile: { value: "" },
-      privateCertificateFile: { value: "" },
-      registerServerMethod: { value: 1 },
-      discoveryServerEndpointUrl: { value: "" },
-      capabilitiesForMDNS: { value: "" },
-      maxNodesPerRead: {
-        value: 1000,
-        validate: function(v) {
-          return (
-            v === "" || (RED.validators.number(v) && v >= 0 && v <= 100000)
-          );
-        }
-      },
-      maxNodesPerWrite: {
-        value: 1000,
-        validate: function(v) {
-          return (
-            v === "" || (RED.validators.number(v) && v >= 0 && v <= 100000)
-          );
-        }
-      },
-      maxNodesPerHistoryReadData: {
-        value: 100,
-        validate: function(v) {
-          return v === "" || (RED.validators.number(v) && v >= 0 && v <= 10000);
-        }
-      },
-      maxNodesPerBrowse: {
-        value: 3000,
-        validate: function(v) {
-          return (
-            v === "" || (RED.validators.number(v) && v >= 0 && v <= 200000)
-          );
-        }
-      },
-      maxBrowseContinuationPoints: {
-        value: 10,
-        validate: function(v) {
-          return v === "" || (RED.validators.number(v) && v >= 0 && v <= 100);
-        }
-      },
-      maxHistoryContinuationPoints: {
-        value: 10,
-        validate: function(v) {
-          return v === "" || (RED.validators.number(v) && v >= 0 && v <= 100);
-        }
-      },
-      delayToInit: {
-        value: 1000,
-        validate: function(v) {
-          return (
-            v === "" || (RED.validators.number(v) && v >= 10 && v <= 200000)
-          );
-        }
-      },
-      delayToClose: {
-        value: 200,
-        validate: function(v) {
-          return (
-            v === "" || (RED.validators.number(v) && v >= 10 && v <= 15000)
-          );
-        }
-      },
-      serverShutdownTimeout: {
-        value: 100,
-        validate: function(v) {
-          return (
-            v === "" || (RED.validators.number(v) && v >= 10 && v <= 15000)
-          );
-        }
-      },
-      addressSpaceScript: {
-        value:
-          'function constructAlarmAddressSpace(server, addressSpace, eventObjects, done) {\n  // server = the created node-opcua server\n  // addressSpace = address space of the node-opcua server\n  // eventObjects = add event variables here to hold them in memory from this script\n\n  // internal sandbox objects are:\n  // node = the compact server node,\n  // coreServer = core compact server object for debug and access to NodeOPCUA\n  // this.sandboxNodeContext = node context node-red\n  // this.sandboxFlowContext = flow context node-red\n  // this.sandboxGlobalContext = global context node-red\n  // this.sandboxEnv = env variables\n  // timeout and interval functions as expected from nodejs\n\n  const opcua = coreServer.choreCompact.opcua;\n  const rootFolder = addressSpace.findNode("RootFolder");\n  const namespace = addressSpace.getOwnNamespace();\n\n  // your code here\n        \n  done();\n}\n'
-      }
-    },
-    inputs: 0,
-    outputs: 0,
-    align: "right",
-    icon: "icon.png",
-    label: function() {
-      return this.name || "Compact-Server";
-    },
-    labelStyle: function() {
-      return this.name ? "node_label_italic" : "";
-    },
-    oneditprepare: function() {
-      let node = this;
-      node.xmlsetSelect = [];
-      let cacheItemCount = 0;
-      let cacheItemCountSet = 0;
-
-      let tabs = RED.tabs.create({
-        id: "node-input-server-tabs",
-        onchange: function(tab) {
-          $("#node-input-server-tabs-content")
-            .children()
-            .hide();
-          $("#" + tab.id).show();
-        }
-      });
-
-      tabs.addTab({
-        id: "compact-server-tab-settings",
-        label: this._("opcua-compact-contrib.tabs-label.settings")
-      });
-
-      tabs.addTab({
-        id: "compact-server-tab-limits",
-        label: this._("opcua-compact-contrib.tabs-label.limits")
-      });
-
-      tabs.addTab({
-        id: "compact-server-tab-security",
-        label: this._("opcua-compact-contrib.tabs-label.security")
-      });
-
-      tabs.addTab({
-        id: "compact-server-tab-users",
-        label: this._("opcua-compact-contrib.tabs-label.users")
-      });
-
-      tabs.addTab({
-        id: "compact-server-tab-ass",
-        label: this._("opcua-compact-contrib.tabs-label.ass")
-      });
-
-      tabs.addTab({
-        id: "compact-server-tab-discovery",
-        label: this._("opcua-compact-contrib.tabs-label.discovery")
-      });
-
-      // User Management
-      if (node.users && node.users.length > 0) {
-        cacheItemCount = node.users.length;
-        node.users.forEach(function(element, index, array) {
-          generateUserEntry(element, index);
-        });
-      }
-
-      // XML-Set Management
-      if (node.xmlsetsOPCUA && node.xmlsetsOPCUA.length > 0) {
-        cacheItemCountSet = node.xmlsetsOPCUA.length;
-        node.xmlsetsOPCUA.forEach(function(element, index, array) {
-          generateXMLSetEntry(element, index);
-        });
-      }
-
-      function generateUserEntry(user, id) {
-        let container = $("<li/>", {
-          style:
-            "background: #fefefe; margin:0; padding:8px 0px; border-bottom: 1px solid #ccc;"
-        });
-        let row = $('<div id="row' + id + '"/>').appendTo(container);
-
-        $(
-          '<i style="color: #eee; cursor: move;" class="node-input-server-users-handle fa fa-bars"></i>'
-        ).appendTo(row);
-
-        let userField = $("<input/>", {
-          id: "node-input-server-users-name" + id,
-          class: "opcuaUserName",
-          type: "text",
-          style: "margin-left:5px;width:160px;",
-          placeholder: "name"
-        }).appendTo(row);
-
-        let passwordField = $("<input/>", {
-          id: "node-input-server-users-password" + id,
-          class: "opcuaUserPassword",
-          type: "password",
-          style: "margin: 0 auto;width:55%;min-width:60px;margin-left:5px",
-          placeholder: "password"
-        }).appendTo(row);
-
-        userField.val(user.name);
-        passwordField.val(user.password);
-
-        let finalspan = $("<span/>", {
-          style: "float: right;margin-right: 10px;"
-        }).appendTo(row);
-
-        let removeUserButton = $("<a/>", {
-          href: "#",
-          id: "node-button-user-remove" + id,
-          class: "editor-button editor-button-small",
-          style: "margin-top: 7px; margin-left: 5px;"
-        }).appendTo(finalspan);
-
-        $("<i/>", { class: "fa fa-remove" }).appendTo(removeUserButton);
-
-        removeUserButton.click(function() {
-          container.css({ background: "#fee" });
-          container.fadeOut(300, function() {
-            $(this).remove();
-          });
-        });
-
-        $("#node-input-server-users-container").append(container);
-      }
-
-      function generateXMLSetEntry(xmlset, id) {
-        let container = $("<li/>", {
-          style:
-            "background: #fefefe; margin:0; padding:8px 0px; border-bottom: 1px solid #ccc;"
-        });
-        let row = $('<div id="xmlsetRow' + id + '"/>').appendTo(container);
-
-        $(
-          '<i style="color: #eee; cursor: move;" class="node-input-server-xmlsets-handle fa fa-bars"></i>'
-        ).appendTo(row);
-
-        let nameField = $("<input/>", {
-          id: "node-input-server-xmlsets-name" + id,
-          type: "text",
-          class: "xmlsetName",
-          style: "margin-left:5px;width:75px;",
-          placeholder: "name"
-        }).appendTo(row);
-
-        let pathField = $("<input/>", {
-          id: "node-input-server-xmlsets-path" + id,
-          class: "xmlsetPath",
-          type: "text",
-          style: "margin: 0 auto;width:68%;min-width:60px;margin-left:5px",
-          placeholder: "public/vendor/opc-foundation/xml/Opc.ISA95.NodeSet2.xml"
-        }).appendTo(row);
-
-        nameField.val(xmlset.name);
-        pathField.val(xmlset.path);
-
-        let finalspan = $("<span/>", {
-          style: "float: right;margin-right: 10px;"
-        }).appendTo(row);
-
-        let lookupItemButton = $("<a/>", {
-          href: "#",
-          id: "node-button-xmlsets-lookup" + id,
-          class: "editor-button editor-button-small",
-          style: "margin-top: 7px; margin-left: 5px;"
-        }).appendTo(finalspan);
-
-        lookupItemButton.click(function() {
-          let xmlsetLookupButton = $("#node-button-xmlsets-lookup" + id);
-          let xmlsetLookupField = $(
-            "#xmlsetRow" + id + " #node-input-server-xmlsets-path" + id
-          );
-
-          xmlsetLookupButton.addClass("disabled");
-
-          $.getJSON("/OPCUA/compact/xmlsets/public", function(data) {
-            xmlsetLookupButton.removeClass("disabled");
+    RED.nodes.registerType("opcua-compact-server", {
+        category: "opcua",
+        color: "#20B2aa",
+        defaults: {
+            port: {
+                value: 54840,
+                required: true,
+                validate: val => {
+                    return val === "" || RED.validators.number(val);
+                }
+            },
+            endpoint: {value: ""},
+            productUri: {value: ""},
+            acceptExternalCommands: {value: true},
+            maxAllowedSessionNumber: {
+                value: 10,
+                validate: function (v) {
+                    return v === "" || (RED.validators.number(v) && v > 0 && v <= 10);
+                }
+            },
+            maxConnectionsPerEndpoint: {
+                value: 10,
+                validate: function (v) {
+                    return v === "" || (RED.validators.number(v) && v > 0 && v <= 10);
+                }
+            },
+            maxAllowedSubscriptionNumber: {
+                value: 100,
+                validate: function (v) {
+                    return v === "" || (RED.validators.number(v) && v > 0 && v <= 10000);
+                }
+            },
+            alternateHostname: {value: ""},
+            name: {value: ""},
+            showStatusActivities: {value: false},
+            showErrors: {value: false},
+            allowAnonymous: {value: true},
+            individualCerts: {value: false},
+            isAuditing: {value: false},
+            serverDiscovery: {value: true},
+            users: {value: []},
+            xmlsetsOPCUA: {value: []},
+            publicCertificateFile: {value: ""},
+            privateCertificateFile: {value: ""},
+            registerServerMethod: {value: 1},
+            discoveryServerEndpointUrl: {value: ""},
+            capabilitiesForMDNS: {value: ""},
+            maxNodesPerRead: {
+                value: 1000,
+                validate: function (v) {
+                    return (
+                        v === "" || (RED.validators.number(v) && v >= 0 && v <= 100000)
+                    );
+                }
+            },
+            maxNodesPerWrite: {
+                value: 1000,
+                validate: function (v) {
+                    return (
+                        v === "" || (RED.validators.number(v) && v >= 0 && v <= 100000)
+                    );
+                }
+            },
+            maxNodesPerHistoryReadData: {
+                value: 100,
+                validate: function (v) {
+                    return v === "" || (RED.validators.number(v) && v >= 0 && v <= 10000);
+                }
+            },
+            maxNodesPerBrowse: {
+                value: 3000,
+                validate: function (v) {
+                    return (
+                        v === "" || (RED.validators.number(v) && v >= 0 && v <= 200000)
+                    );
+                }
+            },
+            maxBrowseContinuationPoints: {
+                value: 10,
+                validate: function (v) {
+                    return v === "" || (RED.validators.number(v) && v >= 0 && v <= 100);
+                }
+            },
+            maxHistoryContinuationPoints: {
+                value: 10,
+                validate: function (v) {
+                    return v === "" || (RED.validators.number(v) && v >= 0 && v <= 100);
+                }
+            },
+            delayToInit: {
+                value: 1000,
+                validate: function (v) {
+                    return (
+                        v === "" || (RED.validators.number(v) && v >= 10 && v <= 200000)
+                    );
+                }
+            },
+            delayToClose: {
+                value: 200,
+                validate: function (v) {
+                    return (
+                        v === "" || (RED.validators.number(v) && v >= 10 && v <= 15000)
+                    );
+                }
+            },
+            serverShutdownTimeout: {
+                value: 100,
+                validate: function (v) {
+                    return (
+                        v === "" || (RED.validators.number(v) && v >= 10 && v <= 15000)
+                    );
+                }
+            },
+            addressSpaceScript: {
+                value:
+                    'function constructAlarmAddressSpace(server, addressSpace, eventObjects, done) {\n  // server = the created node-opcua server\n  // addressSpace = address space of the node-opcua server\n  // eventObjects = add event variables here to hold them in memory from this script\n\n  // internal sandbox objects are:\n  // node = the compact server node,\n  // coreServer = core compact server object for debug and access to NodeOPCUA\n  // this.sandboxNodeContext = node context node-red\n  // this.sandboxFlowContext = flow context node-red\n  // this.sandboxGlobalContext = global context node-red\n  // this.sandboxEnv = env variables\n  // timeout and interval functions as expected from nodejs\n\n  const opcua = coreServer.choreCompact..opcua;\n  const rootFolder = addressSpace.findNode("RootFolder");\n  const namespace = addressSpace.getOwnNamespace();\n\n  // your code here\n        \n  done();\n}\n'
+            }
+        },
+        inputs: 0,
+        outputs: 0,
+        align: "right",
+        icon: "icon.png",
+        label: function () {
+            return this.name || "Compact-Server";
+        },
+        labelStyle: function () {
+            return this.name ? "node_label_italic" : "";
+        },
+        oneditprepare: function () {
+            let node = this;
             node.xmlsetSelect = [];
+            let cacheItemCount = 0;
+            let cacheItemCountSet = 0;
 
-            $.each(data, function(i, filename) {
-              node.xmlsetSelect.push(filename);
+            let tabs = RED.tabs.create({
+                id: "node-input-server-tabs",
+                onchange: function (tab) {
+                    $("#node-input-server-tabs-content")
+                        .children()
+                        .hide();
+                    $("#" + tab.id).show();
+                }
             });
 
-            xmlsetLookupField
-              .autocomplete({
-                source: node.xmlsetSelect,
-                minLength: 0,
-                close: function(event, ui) {
-                  xmlsetLookupField.autocomplete("destroy");
+            tabs.addTab({
+                id: "compact-server-tab-settings",
+                label: this._("opcua-compact-contrib.tabs-label.settings")
+            });
+
+            tabs.addTab({
+                id: "compact-server-tab-limits",
+                label: this._("opcua-compact-contrib.tabs-label.limits")
+            });
+
+            tabs.addTab({
+                id: "compact-server-tab-security",
+                label: this._("opcua-compact-contrib.tabs-label.security")
+            });
+
+            tabs.addTab({
+                id: "compact-server-tab-users",
+                label: this._("opcua-compact-contrib.tabs-label.users")
+            });
+
+            tabs.addTab({
+                id: "compact-server-tab-ass",
+                label: this._("opcua-compact-contrib.tabs-label.ass")
+            });
+
+            tabs.addTab({
+                id: "compact-server-tab-discovery",
+                label: this._("opcua-compact-contrib.tabs-label.discovery")
+            });
+
+            // User Management
+            if (node.users && node.users.length > 0) {
+                cacheItemCount = node.users.length;
+                node.users.forEach(function (element, index, array) {
+                    generateUserEntry(element, index);
+                });
+            }
+
+            // XML-Set Management
+            if (node.xmlsetsOPCUA && node.xmlsetsOPCUA.length > 0) {
+                cacheItemCountSet = node.xmlsetsOPCUA.length;
+                node.xmlsetsOPCUA.forEach(function (element, index, array) {
+                    generateXMLSetEntry(element, index);
+                });
+            }
+
+            function generateUserEntry(user, id) {
+                let container = $("<li/>", {
+                    style:
+                        "background: #fefefe; margin:0; padding:8px 0px; border-bottom: 1px solid #ccc;"
+                });
+                let row = $('<div id="row' + id + '"/>').appendTo(container);
+
+                $(
+                    '<i style="color: #eee; cursor: move;" class="node-input-server-users-handle fa fa-bars"></i>'
+                ).appendTo(row);
+
+                let userField = $("<input/>", {
+                    id: "node-input-server-users-name" + id,
+                    class: "opcuaUserName",
+                    type: "text",
+                    style: "margin-left:5px;width:160px;",
+                    placeholder: "name"
+                }).appendTo(row);
+
+                let passwordField = $("<input/>", {
+                    id: "node-input-server-users-password" + id,
+                    class: "opcuaUserPassword",
+                    type: "password",
+                    style: "margin: 0 auto;width:55%;min-width:60px;margin-left:5px",
+                    placeholder: "password"
+                }).appendTo(row);
+
+                userField.val(user.name);
+                passwordField.val(user.password);
+
+                let finalspan = $("<span/>", {
+                    style: "float: right;margin-right: 10px;"
+                }).appendTo(row);
+
+                let removeUserButton = $("<a/>", {
+                    href: "#",
+                    id: "node-button-user-remove" + id,
+                    class: "editor-button editor-button-small",
+                    style: "margin-top: 7px; margin-left: 5px;"
+                }).appendTo(finalspan);
+
+                $("<i/>", {class: "fa fa-remove"}).appendTo(removeUserButton);
+
+                removeUserButton.click(function () {
+                    container.css({background: "#fee"});
+                    container.fadeOut(300, function () {
+                        $(this).remove();
+                    });
+                });
+
+                $("#node-input-server-users-container").append(container);
+            }
+
+            function generateXMLSetEntry(xmlset, id) {
+                let container = $("<li/>", {
+                    style:
+                        "background: #fefefe; margin:0; padding:8px 0px; border-bottom: 1px solid #ccc;"
+                });
+                let row = $('<div id="xmlsetRow' + id + '"/>').appendTo(container);
+
+                $(
+                    '<i style="color: #eee; cursor: move;" class="node-input-server-xmlsets-handle fa fa-bars"></i>'
+                ).appendTo(row);
+
+                let nameField = $("<input/>", {
+                    id: "node-input-server-xmlsets-name" + id,
+                    type: "text",
+                    class: "xmlsetName",
+                    style: "margin-left:5px;width:75px;",
+                    placeholder: "name"
+                }).appendTo(row);
+
+                let pathField = $("<input/>", {
+                    id: "node-input-server-xmlsets-path" + id,
+                    class: "xmlsetPath",
+                    type: "text",
+                    style: "margin: 0 auto;width:68%;min-width:60px;margin-left:5px",
+                    placeholder: "public/vendor/opc-foundation/xml/Opc.ISA95.NodeSet2.xml"
+                }).appendTo(row);
+
+                nameField.val(xmlset.name);
+                pathField.val(xmlset.path);
+
+                let finalspan = $("<span/>", {
+                    style: "float: right;margin-right: 10px;"
+                }).appendTo(row);
+
+                let lookupItemButton = $("<a/>", {
+                    href: "#",
+                    id: "node-button-xmlsets-lookup" + id,
+                    class: "editor-button editor-button-small",
+                    style: "margin-top: 7px; margin-left: 5px;"
+                }).appendTo(finalspan);
+
+                lookupItemButton.click(function () {
+                    let xmlsetLookupButton = $("#node-button-xmlsets-lookup" + id);
+                    let xmlsetLookupField = $(
+                        "#xmlsetRow" + id + " #node-input-server-xmlsets-path" + id
+                    );
+
+                    xmlsetLookupButton.addClass("disabled");
+
+                    $.getJSON("/OPCUA/compact/xmlsets/public", function (data) {
+                        xmlsetLookupButton.removeClass("disabled");
+                        node.xmlsetSelect = [];
+
+                        $.each(data, function (i, filename) {
+                            node.xmlsetSelect.push(filename);
+                        });
+
+                        xmlsetLookupField
+                            .autocomplete({
+                                source: node.xmlsetSelect,
+                                minLength: 0,
+                                close: function (event, ui) {
+                                    xmlsetLookupField.autocomplete("destroy");
+                                }
+                            })
+                            .autocomplete("search", "");
+                    });
+                });
+
+                $("<i/>", {class: "fa fa-search"}).appendTo(lookupItemButton);
+
+                let removeXMLSetButton = $("<a/>", {
+                    href: "#",
+                    id: "node-button-xmlset-remove" + id,
+                    class: "editor-button editor-button-small",
+                    style: "margin-top:7px;margin-left:5px;"
+                }).appendTo(finalspan);
+
+                $("<i/>", {class: "fa fa-remove"}).appendTo(removeXMLSetButton);
+
+                removeXMLSetButton.click(function () {
+                    container.css({background: "#fee"});
+                    container.fadeOut(300, function () {
+                        $(this).remove();
+                    });
+                });
+
+                $("#node-input-server-xmlsets-container").append(container);
+            }
+
+            $("#node-input-server-users-container").sortable({
+                axis: "y",
+                handle: ".node-input-server-users-handle",
+                cursor: "move"
+            });
+
+            $("#node-input-server-xmlsets-container").sortable({
+                axis: "y",
+                handle: ".node-input-server-xmlsets-handle",
+                cursor: "move"
+            });
+
+            $(
+                "#node-input-server-users-container .node-input-server-users-handle"
+            ).disableSelection();
+
+            $(
+                "#node-input-server-xmlsets-container .node-input-server-xmlsets-handle"
+            ).disableSelection();
+
+            $("#node-input-server-users-add").click(function () {
+                if (!cacheItemCount || cacheItemCount < 0) {
+                    cacheItemCount = 0;
                 }
-              })
-              .autocomplete("search", "");
-          });
-        });
+                generateUserEntry({name: "", password: ""}, cacheItemCount++); // length is every time one more than index
+                $("#node-input-server-users-container-div").scrollTop(
+                    $("#node-input-server-users-container-div").get(0).scrollHeight
+                );
+            });
 
-        $("<i/>", { class: "fa fa-search" }).appendTo(lookupItemButton);
+            $("#node-input-server-xmlsets-add").click(function () {
+                if (!cacheItemCountSet || cacheItemCountSet < 0) {
+                    cacheItemCountSet = 0;
+                }
+                generateXMLSetEntry({name: "", path: ""}, cacheItemCountSet++); // length is every time one more than index
+                $("#node-input-server-xmlsets-container-div").scrollTop(
+                    $("#node-input-server-xmlsets-container-div").get(0).scrollHeight
+                );
+            });
 
-        let removeXMLSetButton = $("<a/>", {
-          href: "#",
-          id: "node-button-xmlset-remove" + id,
-          class: "editor-button editor-button-small",
-          style: "margin-top:7px;margin-left:5px;"
-        }).appendTo(finalspan);
+            function switchDialogResize() {
+                switchUserDialogResize();
+                switchXMLSetDialogSetResize();
+            }
 
-        $("<i/>", { class: "fa fa-remove" }).appendTo(removeXMLSetButton);
+            // dialog User handling
+            function switchUserDialogResize() {
+                let rows = $(
+                    "#dialog-form>div:not(.node-input-server-users-container-row)"
+                );
+                let height = $("#dialog-form").height();
 
-        removeXMLSetButton.click(function() {
-          container.css({ background: "#fee" });
-          container.fadeOut(300, function() {
-            $(this).remove();
-          });
-        });
+                rows.each(function (index, row) {
+                    height -= row.outerHeight(true);
+                });
 
-        $("#node-input-server-xmlsets-container").append(container);
-      }
+                let editorRow = $(
+                    "#dialog-form>div.node-input-server-users-container-row"
+                );
+                height -=
+                    parseInt(editorRow.css("marginTop")) +
+                    parseInt(editorRow.css("marginBottom"));
+                $("#node-input-server-users-container-div").css(
+                    "height",
+                    height + "px"
+                );
+            }
 
-      $("#node-input-server-users-container").sortable({
-        axis: "y",
-        handle: ".node-input-server-users-handle",
-        cursor: "move"
-      });
+            // dialog XML-Set handling
+            function switchXMLSetDialogSetResize() {
+                let rows = $(
+                    "#dialogSet-form>div:not(.node-input-server-xmlsets-container-row)"
+                );
+                let height = $("#dialogSet-form").height();
 
-      $("#node-input-server-xmlsets-container").sortable({
-        axis: "y",
-        handle: ".node-input-server-xmlsets-handle",
-        cursor: "move"
-      });
+                rows.each(function (index, row) {
+                    height -= row.outerHeight(true);
+                });
 
-      $(
-        "#node-input-server-users-container .node-input-server-users-handle"
-      ).disableSelection();
+                let editorRow = $(
+                    "#dialogSet-form>div.node-input-server-xmlsets-container-row"
+                );
+                height -=
+                    parseInt(editorRow.css("marginTop")) +
+                    parseInt(editorRow.css("marginBottom"));
+                $("#node-input-server-xmlsets-container-div").css(
+                    "height",
+                    height + "px"
+                );
+            }
 
-      $(
-        "#node-input-server-xmlsets-container .node-input-server-xmlsets-handle"
-      ).disableSelection();
+            $("#dialog").on("dialogresize", switchDialogResize);
 
-      $("#node-input-server-users-add").click(function() {
-        if (!cacheItemCount || cacheItemCount < 0) {
-          cacheItemCount = 0;
+            $("#dialog").on("dialogopen", function (ev) {
+                let size = $("#dialog").dialog("option", "sizeCache-switch");
+                if (size) {
+                    $("#dialog").dialog("option", "width", size.width);
+                    $("#dialog").dialog("option", "height", size.height);
+                    switchDialogResize();
+                } else {
+                    setTimeout(switchDialogResize, 10);
+                }
+            });
+
+            $("#dialog").on("dialogclose", function (ev, ui) {
+                $("#dialog").off("dialogresize", switchDialogResize);
+            });
+
+            // address space script
+            node.editorAddressSpaceScript = RED.editor.createEditor({
+                id: "node-input-func-editor-addressSpaceScript",
+                mode: "ace/mode/javascript",
+                value: $("#node-input-addressSpaceScript").val(),
+                globals: {
+                    msg: true,
+                    context: true,
+                    RED: true,
+                    util: true,
+                    flow: true,
+                    global: true,
+                    console: true,
+                    Buffer: true,
+                    setTimeout: true,
+                    clearTimeout: true,
+                    setInterval: true,
+                    clearInterval: true,
+                    draggable: true
+                }
+            });
+
+            $(function () {
+                $("#node-input-func-editor-addressSpaceScript").resizable();
+            });
+
+            let element = document.getElementById(
+                "node-input-func-editor-addressSpaceScript"
+            );
+            element.addEventListener("mouseup", resizeScript, false);
+
+            function resizeScript() {
+                node.editorAddressSpaceScript.resize();
+            }
+
+            // Certificate Management
+            try {
+                let certsCheckbox = $("#node-input-individualCerts");
+                let configCertFields = $("#node-config-certFiles");
+
+                if (node.individualCerts) {
+                    certsCheckbox.prop("checked", true);
+                    configCertFields.show();
+                } else {
+                    certsCheckbox.prop("checked", false);
+                    configCertFields.hide();
+                }
+
+                certsCheckbox.change(function () {
+                    if ($(this).is(":checked")) {
+                        configCertFields.show();
+                    } else {
+                        configCertFields.hide();
+                        $("#node-config-input-publicCertificateFile").val("");
+                        $("#node-config-input-privateKeyFile").val("");
+                    }
+                });
+            } catch (err) {
+                this.error(err);
+            }
+        },
+        oneditsave: function () {
+            let node = this;
+
+            let cacheUsers = $("#node-input-server-users-container").children();
+            node.users = [];
+            cacheUsers.each(function () {
+                node.users.push({
+                    name: $(this)
+                        .find(".opcuaUserName")
+                        .val(),
+                    password: $(this)
+                        .find(".opcuaUserPassword")
+                        .val()
+                });
+            });
+
+            let cacheXMLSets = $("#node-input-server-xmlsets-container").children();
+            node.xmlsetsOPCUA = [];
+            cacheXMLSets.each(function () {
+                node.xmlsetsOPCUA.push({
+                    name: $(this)
+                        .find(".xmlsetName")
+                        .val(),
+                    path: $(this)
+                        .find(".xmlsetPath")
+                        .val()
+                });
+            });
+
+            $("#node-input-addressSpaceScript").val(
+                this.editorAddressSpaceScript.getValue()
+            );
+            this.editorAddressSpaceScript.destroy();
+            delete this.editorAddressSpaceScript;
+
+            // console.log('well done editsave ...')
         }
-        generateUserEntry({ name: "", password: "" }, cacheItemCount++); // length is every time one more than index
-        $("#node-input-server-users-container-div").scrollTop(
-          $("#node-input-server-users-container-div").get(0).scrollHeight
-        );
-      });
-
-      $("#node-input-server-xmlsets-add").click(function() {
-        if (!cacheItemCountSet || cacheItemCountSet < 0) {
-          cacheItemCountSet = 0;
-        }
-        generateXMLSetEntry({ name: "", path: "" }, cacheItemCountSet++); // length is every time one more than index
-        $("#node-input-server-xmlsets-container-div").scrollTop(
-          $("#node-input-server-xmlsets-container-div").get(0).scrollHeight
-        );
-      });
-
-      function switchDialogResize() {
-        switchUserDialogResize();
-        switchXMLSetDialogSetResize();
-      }
-
-      // dialog User handling
-      function switchUserDialogResize() {
-        let rows = $(
-          "#dialog-form>div:not(.node-input-server-users-container-row)"
-        );
-        let height = $("#dialog-form").height();
-
-        rows.each(function(index, row) {
-          height -= row.outerHeight(true);
-        });
-
-        let editorRow = $(
-          "#dialog-form>div.node-input-server-users-container-row"
-        );
-        height -=
-          parseInt(editorRow.css("marginTop")) +
-          parseInt(editorRow.css("marginBottom"));
-        $("#node-input-server-users-container-div").css(
-          "height",
-          height + "px"
-        );
-      }
-
-      // dialog XML-Set handling
-      function switchXMLSetDialogSetResize() {
-        let rows = $(
-          "#dialogSet-form>div:not(.node-input-server-xmlsets-container-row)"
-        );
-        let height = $("#dialogSet-form").height();
-
-        rows.each(function(index, row) {
-          height -= row.outerHeight(true);
-        });
-
-        let editorRow = $(
-          "#dialogSet-form>div.node-input-server-xmlsets-container-row"
-        );
-        height -=
-          parseInt(editorRow.css("marginTop")) +
-          parseInt(editorRow.css("marginBottom"));
-        $("#node-input-server-xmlsets-container-div").css(
-          "height",
-          height + "px"
-        );
-      }
-
-      $("#dialog").on("dialogresize", switchDialogResize);
-
-      $("#dialog").on("dialogopen", function(ev) {
-        let size = $("#dialog").dialog("option", "sizeCache-switch");
-        if (size) {
-          $("#dialog").dialog("option", "width", size.width);
-          $("#dialog").dialog("option", "height", size.height);
-          switchDialogResize();
-        } else {
-          setTimeout(switchDialogResize, 10);
-        }
-      });
-
-      $("#dialog").on("dialogclose", function(ev, ui) {
-        $("#dialog").off("dialogresize", switchDialogResize);
-      });
-
-      // address space script
-      node.editorAddressSpaceScript = RED.editor.createEditor({
-        id: "node-input-func-editor-addressSpaceScript",
-        mode: "ace/mode/javascript",
-        value: $("#node-input-addressSpaceScript").val(),
-        globals: {
-          msg: true,
-          context: true,
-          RED: true,
-          util: true,
-          flow: true,
-          global: true,
-          console: true,
-          Buffer: true,
-          setTimeout: true,
-          clearTimeout: true,
-          setInterval: true,
-          clearInterval: true,
-          draggable: true
-        }
-      });
-
-      $(function() {
-        $("#node-input-func-editor-addressSpaceScript").resizable();
-      });
-
-      let element = document.getElementById(
-        "node-input-func-editor-addressSpaceScript"
-      );
-      element.addEventListener("mouseup", resizeScript, false);
-
-      function resizeScript() {
-        node.editorAddressSpaceScript.resize();
-      }
-
-      // Certificate Management
-      try {
-        let certsCheckbox = $("#node-input-individualCerts");
-        let configCertFields = $("#node-config-certFiles");
-
-        if (node.individualCerts) {
-          certsCheckbox.prop("checked", true);
-          configCertFields.show();
-        } else {
-          certsCheckbox.prop("checked", false);
-          configCertFields.hide();
-        }
-
-        certsCheckbox.change(function() {
-          if ($(this).is(":checked")) {
-            configCertFields.show();
-          } else {
-            configCertFields.hide();
-            $("#node-config-input-publicCertificateFile").val("");
-            $("#node-config-input-privateKeyFile").val("");
-          }
-        });
-      } catch (err) {
-        this.error(err);
-      }
-    },
-    oneditsave: function() {
-      let node = this;
-
-      let cacheUsers = $("#node-input-server-users-container").children();
-      node.users = [];
-      cacheUsers.each(function() {
-        node.users.push({
-          name: $(this)
-            .find(".opcuaUserName")
-            .val(),
-          password: $(this)
-            .find(".opcuaUserPassword")
-            .val()
-        });
-      });
-
-      let cacheXMLSets = $("#node-input-server-xmlsets-container").children();
-      node.xmlsetsOPCUA = [];
-      cacheXMLSets.each(function() {
-        node.xmlsetsOPCUA.push({
-          name: $(this)
-            .find(".xmlsetName")
-            .val(),
-          path: $(this)
-            .find(".xmlsetPath")
-            .val()
-        });
-      });
-
-      $("#node-input-addressSpaceScript").val(
-        this.editorAddressSpaceScript.getValue()
-      );
-      this.editorAddressSpaceScript.destroy();
-      delete this.editorAddressSpaceScript;
-
-      // console.log('well done editsave ...')
-    }
-  });
+    });
 </script>
 
 <script type="text/x-red" data-template-name="opcua-compact-server">
@@ -811,4 +812,5 @@
           </div>
       </div>
   </div>
+
 </script>

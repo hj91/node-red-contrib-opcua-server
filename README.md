@@ -11,7 +11,7 @@ A programmable OPC UA server for Node-RED based on node-opcua next generation ve
 
 ## Core
 
-using next generation node-opcua version from [Etienne Rossignon](https://github.com/erossignon/)
+using node-opcua version 2.3+ from [Etienne Rossignon](https://github.com/erossignon/)
 
 ## Install
 

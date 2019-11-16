@@ -1,12 +1,12 @@
 /**
  MIT License
- Copyright (c) 2018,2019 Bianco Royal Software Innovations® (https://bianco-royal.cloud/)
+ Copyright (c) 2018,2019 Bianco Royal Software Innovations® (https://bianco-royal.com/)
  **/
 "use strict";
 module.exports = {
-  choreCompact: require("./chore").de.bianco.royal.compact,
-  debugLog: require("./chore").de.bianco.royal.compact.opcuaSandboxDebug,
-  errorLog: require("./chore").de.bianco.royal.compact.opcuaErrorDebug,
+  choreCompact: require("./chore").de.bianco.royal.compact.server,
+  debugLog: require("./chore").de.bianco.royal.compact.server.opcuaSandboxDebug,
+  errorLog: require("./chore").de.bianco.royal.compact.server.opcuaErrorDebug,
   initialize: (node, coreServer, done) => {
     const { VM } = require("vm2");
     node.outstandingTimers = [];

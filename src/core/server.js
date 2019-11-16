@@ -1,14 +1,15 @@
 /**
  MIT License
- Copyright (c) 2018,2019 Bianco Royal Software Innovations® (https://bianco-royal.cloud/)
+ Copyright (c) 2018,2019 Bianco Royal Software Innovations® (https://bianco-royal.com/)
  Copyright (c) 2019 Sterfive (https://www.sterfive.com/)
  **/
 "use strict";
 module.exports = {
-  choreCompact: require("./chore").de.bianco.royal.compact,
-  debugLog: require("./chore").de.bianco.royal.compact.opcuaServerDebug,
-  detailLog: require("./chore").de.bianco.royal.compact.opcuaServerDetailsDebug,
-  errorLog: require("./chore").de.bianco.royal.compact.opcuaErrorDebug,
+  choreCompact: require("./chore").de.bianco.royal.compact.server,
+  debugLog: require("./chore").de.bianco.royal.compact.server.opcuaServerDebug,
+  detailLog: require("./chore").de.bianco.royal.compact.server
+    .opcuaServerDetailsDebug,
+  errorLog: require("./chore").de.bianco.royal.compact.server.opcuaErrorDebug,
   readConfigOfServerNode: (node, config) => {
     node.name = config.name;
 
@@ -100,7 +101,7 @@ module.exports = {
   },
   defaultServerOptions: node => {
     const applicationUri = module.exports.choreCompact.opcua.makeApplicationUrn(
-      module.exports.choreCompact.opcua.get_fully_qualified_domain_name(),
+      "%FQDN%",
       node.productUri || "NodeOPCUA-Server-" + node.port
     );
 
@@ -120,7 +121,7 @@ module.exports = {
       port: node.port,
       nodeset_filename:
         module.exports.choreCompact.opcuaNodesets.standard_nodeset_file,
-      resourcePath: node.endpoint || "UA/NodeRED/Compact",
+      // resourcePath: node.endpoint || "UA/NodeRED/Compact",
       buildInfo: {
         productName: "Node-RED OPC UA Compact Server",
         buildNumber: "20190228",
@@ -144,15 +145,15 @@ module.exports = {
         discoveryProfileUri: null,
         discoveryUrls: []
       },
-      alternateHostname: node.alternateHostname,
+      // alternateHostname: node.alternateHostname,
       maxAllowedSessionNumber: node.maxAllowedSessionNumber,
       maxConnectionsPerEndpoint: node.maxConnectionsPerEndpoint,
       allowAnonymous: node.allowAnonymous,
       /* securityPolicies: [ TODO: configure SecurityPolicies
-        SecurityPolicy.Basic128Rsa15,
-        SecurityPolicy.Basic256,
-        SecurityPolicy.Basic256Sha256
-      ], */
+              SecurityPolicy.Basic128Rsa15,
+              SecurityPolicy.Basic256,
+              SecurityPolicy.Basic256Sha256
+            ], */
       certificateFile,
       privateKeyFile,
       userManager: {
@@ -160,7 +161,7 @@ module.exports = {
       },
       isAuditing: node.isAuditing,
       disableDiscovery: node.disableDiscovery,
-      registerServerMethod
+      registerServerMethod: module.exports.choreCompact.opcua.RegisterServerMethod.HIDDEN
     };
   },
   constructAddressSpaceFromScript: (

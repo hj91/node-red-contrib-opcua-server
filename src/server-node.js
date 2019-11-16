@@ -1,11 +1,12 @@
 /**
  MIT License
- Copyright (c) 2018,2019 Bianco Royal Software Innovations® (https://bianco-royal.cloud/)
+ Copyright (c) 2018,2019 Bianco Royal Software Innovations® (https://bianco-royal.com/)
  **/
 
 module.exports = function(RED) {
   // SOURCE-MAP-REQUIRED
   "use strict";
+
   function OPCUACompactServerNode(nodeConfig) {
     const coreServer = require("./core/server");
     const coreServerSandbox = require("./core/server-sandbox");
@@ -43,10 +44,14 @@ module.exports = function(RED) {
         coreServerSandbox.debugLog("Init Function Block Compact Server"); // placeholder function for sandbox compile
       };
 
-      opcuaServer = coreServer.initialize(node, opcuaServerOptions);
-      opcuaServer.initialize(() => {
-        coreServer.postInitialize(node, opcuaServer);
-      });
+      try {
+        opcuaServer = coreServer.initialize(node, opcuaServerOptions);
+        opcuaServer.on('post_initialize', () => {
+          coreServer.postInitialize(node, opcuaServer);
+        });
+      } catch (err) {
+        console.log(err);
+      }
 
       coreServer
         .run(node, opcuaServer)
@@ -114,8 +119,8 @@ module.exports = function(RED) {
     function(req, res) {
       let xmlset = [];
       const coreChore = require("./core/chore");
-      xmlset.push(coreChore.de.bianco.royal.compact.opcua.di_nodeset_filename);
-      xmlset.push(coreChore.de.bianco.royal.compact.opcua.adi_nodeset_filename);
+      xmlset.push(coreChore.de.bianco.royal.compact.server.opcua.di_nodeset_filename);
+      xmlset.push(coreChore.de.bianco.royal.compact.server.opcua.adi_nodeset_filename);
       xmlset.push("public/vendor/opc-foundation/xml/Opc.ISA95.NodeSet2.xml");
       xmlset.push("public/vendor/opc-foundation/xml/Opc.Ua.Adi.NodeSet2.xml");
       xmlset.push("public/vendor/opc-foundation/xml/Opc.Ua.Di.NodeSet2.xml");

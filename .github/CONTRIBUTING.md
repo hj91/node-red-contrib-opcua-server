@@ -32,8 +32,8 @@ relevant nodes, press Ctrl-E and copy the flow data from the Export dialog.
 At a minimum, please include:
 
  - Version of node.js? (should be >=10)
- - Version of Node-RED? (should be >=v0.19.5)
- - Version of node-red-contrib-opcua-server? (should be >=v0.2.5)
+ - Version of Node-RED? (should be >=v1.0.2)
+ - Version of node-red-contrib-opcua-server? (should be >=v1.0.0)
  
  - What is your platform? (Linux, macOS, ...)
  - What does `DEBUG=opcuaCompact:* node-red -v` say? (log files are welcome)
