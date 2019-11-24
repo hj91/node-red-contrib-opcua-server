@@ -20,11 +20,11 @@
     "create_certificates.js"
   ],
   "dependencies": {
-    "better-assert": "^1.0.2",
-    "debug": "^4.1.1",
-    "node-opcua": "2.3.0",
-    "source-map-support": "^0.5.16",
-    "vm2": "^3.8.4"
+    "better-assert": "1.0.2",
+    "debug": "4.1.1",
+    "node-opcua": "2.4.0",
+    "source-map-support": "0.5.16",
+    "vm2": "3.8.4"
   },
   "scripts": {
     "postinstall": "node ./create_certificates.js demo --dev -s -r ./certificates && node ./supporter.js",
@@ -53,13 +53,10 @@
   },
   "keywords": [
     "node-red",
-    "node-opcua",
     "opcua",
     "automation",
-    "fieldbus",
     "iiot",
-    "biancoroyal",
-    "modbus"
+    "biancoroyal"
   ],
   "devDependencies": {
     "@babel/cli": "^7.7.0",
@@ -82,6 +79,7 @@
     "jsdoc": "^3.6.3",
     "node-red": "^1.0.2",
     "node-red-node-test-helper": "^0.2.3",
+    "path-type": "^3.0.0",
     "prettier": "^1.19.1",
     "pump": "^3.0.0",
     "remark-cli": "^7.0.1",
@@ -99,6 +97,8 @@
       "jest"
     ],
     "ignore": [
+      "certificate",
+      "certificates",
       "code/",
       "node_modules/",
       "examples/",

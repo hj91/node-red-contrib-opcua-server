@@ -38,10 +38,18 @@ function serverKeyFile(keybits) {
   );
 }
 
+function serverCertificateFolder() {
+  return path.join(
+      __dirname,
+      "../../certificate"
+  );
+}
+
 module.exports = {
   isWindows,
   checkUserLogon,
   getPackagePathFromIndex,
   serverCertificateFile,
+  serverCertificateFolder,
   serverKeyFile
 };

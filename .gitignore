@@ -61,7 +61,7 @@ typings/
 .next
 
 \.idea/
-
+certificate/
 certificates/
 jcoverage/
 docs/

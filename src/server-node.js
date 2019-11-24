@@ -14,7 +14,7 @@ module.exports = function(RED) {
     RED.nodes.createNode(this, nodeConfig);
     this.name = nodeConfig.name;
     this.port = nodeConfig.port;
-
+    coreServer.detailLog("OPC UA server port config " + this.port);
     let node = this;
     let opcuaServer;
     coreServer.detailLog("create node " + node.id);

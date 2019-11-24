@@ -20,7 +20,7 @@ beforeAll(done => {
       id: "b603b743.46eef8",
       type: "opcua-compact-server",
       z: "96df9d1b.b1b87",
-      port: "54851",
+      port: "54860",
       endpoint: "",
       productUri: "",
       acceptExternalCommands: true,

@@ -14,25 +14,25 @@ module.exports = {
     node.name = config.name;
 
     // network
-    node.port = config.port;
+    node.port = Number(config.port);
     node.endpoint = config.endpoint;
     node.productUri = config.productUri;
     node.alternateHostname = config.alternateHostname;
 
     // limits
-    node.maxAllowedSessionNumber = config.maxAllowedSessionNumber;
-    node.maxConnectionsPerEndpoint = config.maxConnectionsPerEndpoint;
-    node.maxAllowedSubscriptionNumber = config.maxAllowedSubscriptionNumber;
-    node.maxNodesPerRead = config.maxNodesPerRead;
-    node.maxNodesPerWrite = config.maxNodesPerWrite;
-    node.maxNodesPerHistoryReadData = config.maxNodesPerHistoryReadData;
-    node.maxNodesPerBrowse = config.maxNodesPerBrowse;
-    node.maxBrowseContinuationPoints = config.maxBrowseContinuationPoints;
-    node.maxHistoryContinuationPoints = config.maxHistoryContinuationPoints;
+    node.maxAllowedSessionNumber = Number(config.maxAllowedSessionNumber);
+    node.maxConnectionsPerEndpoint = Number(config.maxConnectionsPerEndpoint);
+    node.maxAllowedSubscriptionNumber = Number(config.maxAllowedSubscriptionNumber);
+    node.maxNodesPerRead = Number(config.maxNodesPerRead);
+    node.maxNodesPerWrite = Number(config.maxNodesPerWrite);
+    node.maxNodesPerHistoryReadData = Number(config.maxNodesPerHistoryReadData);
+    node.maxNodesPerBrowse = Number(config.maxNodesPerBrowse);
+    node.maxBrowseContinuationPoints = Number(config.maxBrowseContinuationPoints);
+    node.maxHistoryContinuationPoints = Number(config.maxHistoryContinuationPoints);
 
-    node.delayToInit = config.delayToInit;
-    node.delayToClose = config.delayToClose;
-    node.serverShutdownTimeout = config.serverShutdownTimeout;
+    node.delayToInit = Number(config.delayToInit);
+    node.delayToClose = Number(config.delayToClose);
+    node.serverShutdownTimeout = Number(config.serverShutdownTimeout);
     node.showStatusActivities = config.showStatusActivities;
     node.showErrors = config.showErrors;
 
@@ -69,7 +69,16 @@ module.exports = {
   },
   getRegisterServerMethod: id => {
     const RegisterServerMethod = require("node-opcua").RegisterServerMethod;
-    return RegisterServerMethod[id];
+    switch(id) {
+      case 1:
+        return RegisterServerMethod.HIDDEN;
+      case 2:
+        return RegisterServerMethod.MDNS;
+      case 3:
+        return RegisterServerMethod.LDS;
+      default:
+        return RegisterServerMethod.HIDDEN
+    }
   },
   loadOPCUANodeSets: (node, dirname) => {
     let standardNodeSetFile =
@@ -117,15 +126,20 @@ module.exports = {
       node.registerServerMethod
     );
 
+    const certificateManager = new module.exports.choreCompact.opcua.OPCUACertificateManager({
+      automaticallyAcceptUnknownCertificate: true,
+      rootFolder: module.exports.choreCompact.coreSecurity.serverCertificateFolder(),
+    });
+
     return {
-      port: node.port,
+      port: Number(node.port),
       nodeset_filename:
         module.exports.choreCompact.opcuaNodesets.standard_nodeset_file,
       resourcePath: node.endpoint || "/UA/NodeRED/Compact",
       buildInfo: {
         productName: "Node-RED OPC UA Compact Server",
-        buildNumber: "20191118",
-        buildDate: new Date(2019, 11, 18)
+        buildNumber: "20191124",
+        buildDate: new Date(2019, 11, 24)
       },
       serverCapabilities: {
         maxBrowseContinuationPoints: node.maxBrowseContinuationPoints,
@@ -154,6 +168,7 @@ module.exports = {
               SecurityPolicy.Basic256,
               SecurityPolicy.Basic256Sha256
             ], */
+      serverCertificateManager: certificateManager,
       certificateFile,
       privateKeyFile,
       userManager: {
