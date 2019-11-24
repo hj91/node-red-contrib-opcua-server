@@ -121,11 +121,11 @@ module.exports = {
       port: node.port,
       nodeset_filename:
         module.exports.choreCompact.opcuaNodesets.standard_nodeset_file,
-      // resourcePath: node.endpoint || "UA/NodeRED/Compact",
+      resourcePath: node.endpoint || "/UA/NodeRED/Compact",
       buildInfo: {
         productName: "Node-RED OPC UA Compact Server",
-        buildNumber: "20190228",
-        buildDate: new Date(2019, 2, 28)
+        buildNumber: "20191118",
+        buildDate: new Date(2019, 11, 18)
       },
       serverCapabilities: {
         maxBrowseContinuationPoints: node.maxBrowseContinuationPoints,
@@ -145,7 +145,7 @@ module.exports = {
         discoveryProfileUri: null,
         discoveryUrls: []
       },
-      // alternateHostname: node.alternateHostname,
+      alternateHostname: node.alternateHostname,
       maxAllowedSessionNumber: node.maxAllowedSessionNumber,
       maxConnectionsPerEndpoint: node.maxConnectionsPerEndpoint,
       allowAnonymous: node.allowAnonymous,
@@ -161,7 +161,7 @@ module.exports = {
       },
       isAuditing: node.isAuditing,
       disableDiscovery: node.disableDiscovery,
-      registerServerMethod: module.exports.choreCompact.opcua.RegisterServerMethod.HIDDEN
+      registerServerMethod
     };
   },
   constructAddressSpaceFromScript: (

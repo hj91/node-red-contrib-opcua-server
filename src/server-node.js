@@ -46,8 +46,22 @@ module.exports = function(RED) {
 
       try {
         opcuaServer = coreServer.initialize(node, opcuaServerOptions);
-        opcuaServer.on('post_initialize', () => {
+        opcuaServer.on("post_initialize", () => {
           coreServer.postInitialize(node, opcuaServer);
+        });
+        opcuaServer.on("serverRegistered", () => {
+          coreServer.detailLog("server has been registered");
+        });
+        opcuaServer.on("serverUnregistered", () => {
+          coreServer.detailLog("server has been unregistered");
+        });
+        opcuaServer.on("serverRegistrationRenewed", () => {
+          coreServer.detailLog("server registration has been renewed");
+        });
+        opcuaServer.on("serverRegistrationPending", () => {
+          coreServer.detailLog(
+              "server registration is still pending (is Local Discovery Server up and running ?)"
+          );
         });
       } catch (err) {
         console.log(err);

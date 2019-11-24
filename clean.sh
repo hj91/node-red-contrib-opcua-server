@@ -9,4 +9,4 @@ npm cache verify
 
 npm i
 
-gulp publish
+npm run build

@@ -6,7 +6,7 @@
 jest.setTimeout(10000);
 
 describe("core.chore unit testing", function() {
-  const coreChore = require("../../src/core/chore").de.bianco.royal.compact;
+  const coreChore = require("../../src/core/chore").de.bianco.royal.compact.server;
 
   it("should have listening on error with message for node", function(done) {
     const EventEmitter = require("events");
