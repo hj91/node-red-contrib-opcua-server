@@ -5,8 +5,22 @@ rm package-lock.json
 
 rm -rf certificates/
 
+rm -rf code/
+
+rm -rf coverage/
+
+rm -rf docs/gen
+
+rm package-lock.json
+
 npm cache verify
 
-npm i
+npm install
+
+npm i --only=dev
+
+npm test
 
 npm run build
+
+npm run rewrite-changelog
